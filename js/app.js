@@ -151,6 +151,10 @@ function formatData(data) {
 
         holiday.until = calculateDaysBetweenDates(new Date(), holiday.start)
 
+        if (holiday.until < 0) {
+            holiday.until = getTranslation('HOLIDAY_OVER');
+        }
+
         formattedData.push(holiday);
 
     });
