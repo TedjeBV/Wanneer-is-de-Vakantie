@@ -1,0 +1,16 @@
+{
+    "nl": {
+        "HOLIDAY_TYPE": "Vakantie",
+        "HOLIDAY_START": "Begin",
+        "HOLIDAY_END": "Einde",
+
+        "AUTUM_BREAK": "Herfstvakantie",
+        "CHRISTMAS_BREAK": "Kerstvakantie",
+        "SPRING_BREAK": "Voorjaarsvakantie",
+        "EASTER": "Pasen",
+        "MAY_BREAK": "Meivakantie",
+        "ASCENSION_DAY": "Hemelvaart",
+        "PENTECOST": "Pinksteren",
+        "SUMMER_BREAK": "Zomervakantie"
+    }
+}
