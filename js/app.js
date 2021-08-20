@@ -37,7 +37,7 @@ if (session.language === null) { session.language = config.defaultLanguage };
 
 // Run the script
 function run() {
-    session.data = formatData(session.data)
+    session.data = formatData(session.data);
     const table = makeTable(session.data);
     document.getElementById('table').appendChild(table);
 }
