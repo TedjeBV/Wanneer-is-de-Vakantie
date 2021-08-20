@@ -37,9 +37,19 @@ if (session.language === null) { session.language = config.defaultLanguage };
 
 // Run the script
 function run() {
+    // Main element
+    const main = document.getElementsByTagName('main')[0]
+
+    // Format the data
     session.data = formatData(session.data);
+
+    // Current info
+    const currentInfo = getCurrentInfo(session.data);
+    main.appendChild(buildCurrentInfo(currentInfo));
+
+    // Main holiday data table
     const table = makeTable(session.data);
-    document.getElementById('table').appendChild(table);
+    main.appendChild(table);
 }
 
 // Get correct tranlation
@@ -134,6 +144,57 @@ function makeTable(data) {
     return table;
 
 }
+
+// Get current info
+function getCurrentInfo(data) {
+
+    // holiday.start <= currentDate && holiday.end >= currentDate
+
+    // Get current date
+    const currentDate = new Date();
+
+    // Variable to hold next(/current) holiday
+    let result;
+
+    session.data.forEach(holiday => {
+        // Check if holiday already is over
+        if (holiday.end >! currentDate && result === undefined) { result = holiday }
+    })
+
+    const holiday = result;
+
+    // Check if holiday is active
+    if (holiday.start <= currentDate && holiday.end >= currentDate) { holiday.active = true };
+
+    return holiday
+
+};
+
+// Build HTML for current info
+function buildCurrentInfo(holiday) {
+
+    // Container for current info
+    const container = document.createElement('div');
+    container.id = 'current-info';
+
+    // Title
+    const title = document.createElement('h2');
+    container.appendChild(title);
+
+    // Check if holiday is active
+    if (holiday.active === true) {
+        
+        title.innerText = getTranslation('TEXT_HOLIDAY_IS_ACTIVE');
+
+    } else {
+
+        title.innerText = getTranslation('TEXT_HOLIDAY_IS_NOT_ACTIVE');
+    
+    };
+
+    return container
+
+};
 
 // Format the data
 function formatData(data) {
