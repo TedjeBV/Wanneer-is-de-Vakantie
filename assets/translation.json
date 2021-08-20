@@ -3,6 +3,9 @@
         "HOLIDAY_TYPE": "Vakantie",
         "HOLIDAY_START": "Begin",
         "HOLIDAY_END": "Einde",
+        "HOLIDAY_DURATION": "Lengte",
+        "HOLIDAY_UNTIL": "Dagen tot vakantie",
+        "HOLIDAY_PAST": "Vakantie al geweest!",
 
         "AUTUM_BREAK": "Herfstvakantie",
         "CHRISTMAS_BREAK": "Kerstvakantie",
