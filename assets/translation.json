@@ -18,6 +18,9 @@
 
         "DAYS": "dagen",
 
+        "TEXT_HOLIDAY_IS_ACTIVE": "Je hebt vakantie!",
+        "TEXT_HOLIDAY_NOT_ACTIVE": "Volgende vakantie:",
+
         "ERROR": {
             "ERROR": "Foutmelding",
             "YEAR_NOT_FOUND": "Jaar niet gevonden"
