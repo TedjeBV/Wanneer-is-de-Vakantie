@@ -11,6 +11,11 @@
         "MAY_BREAK": "Meivakantie",
         "ASCENSION_DAY": "Hemelvaart",
         "PENTECOST": "Pinksteren",
-        "SUMMER_BREAK": "Zomervakantie"
+        "SUMMER_BREAK": "Zomervakantie",
+
+        "ERROR": {
+            "ERROR": "Foutmelding",
+            "YEAR_NOT_FOUND": "Jaar niet gevonden"
+        }
     }
 }
