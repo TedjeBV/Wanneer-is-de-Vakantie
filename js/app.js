@@ -184,11 +184,20 @@ function getCurrentInfo(data) {
 // Build HTML for current info
 function buildCurrentInfo(holiday) {
 
-    console.log(holiday);
+    console.log(holiday);    
 
     // Container for current info
     const container = document.createElement('div');
     container.id = 'current-info';
+
+    // If all holidays are over
+    if (holiday.no_left) {
+        const title = document.createElement('h2');
+        title.innerHTML = getTranslation('TEXT_NO_HOLIDAYS_LEFT');
+
+        container.appendChild(title);
+        return container
+    }
 
     // Title
     const title = document.createElement('h2');

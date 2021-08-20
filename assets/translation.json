@@ -24,6 +24,7 @@
 
         "TEXT_HOLIDAY_IS_ACTIVE": "Je hebt vakantie!",
         "TEXT_HOLIDAY_NOT_ACTIVE": "Volgende vakantie:",
+        "TEXT_NO_HOLIDAYS_LEFT": "Geen vakantie meer over :(",
 
         "ERROR": {
             "ERROR": "Foutmelding",
