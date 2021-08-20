@@ -155,7 +155,7 @@ function getCurrentInfo(data) {
     // holiday.start <= currentDate && holiday.end >= currentDate
 
     // Get current date
-    const currentDate = new Date('06-08-2021'); // Testing
+    const currentDate = new Date();
 
     // Variable to hold next(/current) holiday
     let result;
@@ -210,7 +210,7 @@ function buildCurrentInfo(holiday) {
 
         title.innerText = getTranslation('TEXT_HOLIDAY_NOT_ACTIVE');
         const still = getTranslation('STILL').charAt(0).toUpperCase() + getTranslation('STILL').slice(1);
-        const daysLeft = calculateDaysBetweenDates(new Date('06-08-2021'), holiday.start);
+        const daysLeft = calculateDaysBetweenDates(new Date(), holiday.start);
         const dayOrDays = (daysLeft === 1) ? getTranslation('DAY') : getTranslation('DAYS');
         number.innerText = `${still} ${daysLeft} ${dayOrDays} ${getTranslation('TO_GO')}.`
     
@@ -237,7 +237,7 @@ function formatData(data) {
 
         holiday.duration = calculateDaysBetweenDates(holiday.start, holiday.end)
 
-        holiday.until = calculateDaysBetweenDates(new Date('06-08-2021'), holiday.start)
+        holiday.until = calculateDaysBetweenDates(new Date(), holiday.start)
 
         if (holiday.until < 0) {
             holiday.until = getTranslation('HOLIDAY_OVER');
