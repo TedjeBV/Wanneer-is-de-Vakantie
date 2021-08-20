@@ -164,9 +164,8 @@ function getCurrentInfo(data) {
         // Check if holiday already is over
         const startOver = calculateDaysBetweenDates(holiday.start, currentDate) >= 0;
         const endOver = calculateDaysBetweenDates(holiday.end, currentDate) >= 0;
-        console.log(holiday.type, startOver, endOver);
         if (!startOver) {
-            if (!endOver) { result = holiday; console.log(holiday.type) }
+            if (!endOver) { result = holiday }
         }
     })
 
@@ -183,8 +182,6 @@ function getCurrentInfo(data) {
 
 // Build HTML for current info
 function buildCurrentInfo(holiday) {
-
-    console.log(holiday);    
 
     // Container for current info
     const container = document.createElement('div');
