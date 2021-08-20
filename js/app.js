@@ -85,14 +85,20 @@ function makeTable(data) {
     const headerHolidayType = document.createElement('th');
     const headerHolidayStart = document.createElement('th');
     const headerHolidayEnd = document.createElement('th');
+    const headerHolidayDuration = document.createElement('th');
+    const headerHolidayUntil = document.createElement('th');
 
     headerHolidayType.innerHTML = getTranslation('HOLIDAY_TYPE');
     headerHolidayStart.innerHTML = getTranslation('HOLIDAY_START');
     headerHolidayEnd.innerHTML = getTranslation('HOLIDAY_END');
+    headerHolidayDuration.innerHTML = getTranslation('HOLIDAY_DURATION');
+    headerHolidayUntil.innerHTML = getTranslation('HOLIDAY_UNTIL');
 
     header.appendChild(headerHolidayType);
     header.appendChild(headerHolidayStart);
     header.appendChild(headerHolidayEnd);
+    header.appendChild(headerHolidayDuration);
+    header.appendChild(headerHolidayUntil);
 
     table.appendChild(header);
 
@@ -106,14 +112,21 @@ function makeTable(data) {
         holidayStart.classList.add('center');
         const holidayEnd = document.createElement('td');
         holidayEnd.classList.add('center');
+        const holidayDuration = document.createElement('td');
+        holidayDuration.classList.add('center');
+        const holidayUntil = document.createElement('td');
 
         holidayType.innerHTML = getTranslation(data[i].type);
         holidayStart.innerHTML = formatDate(data[i].start, config.dateOrder);
         holidayEnd.innerHTML = formatDate(data[i].end, config.dateOrder);
+        holidayDuration.innerHTML = data[i].duration;
+        holidayUntil.innerHTML = data[i].until;
 
         row.appendChild(holidayType);
         row.appendChild(holidayStart);
         row.appendChild(holidayEnd);
+        row.appendChild(holidayDuration);
+        row.appendChild(holidayUntil);
 
         body.appendChild(row);
     }
