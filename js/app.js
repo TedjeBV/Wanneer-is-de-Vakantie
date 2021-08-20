@@ -95,8 +95,11 @@ function makeTable(data) {
     for (let i = 0; i < data.length; i++) {
         const row = document.createElement('tr');
         const holidayType = document.createElement('td');
+        holidayType.classList.add('bold');
         const holidayStart = document.createElement('td');
+        holidayStart.classList.add('center');
         const holidayEnd = document.createElement('td');
+        holidayEnd.classList.add('center');
 
         holidayType.innerHTML = getTranslation(data[i].type);
         holidayStart.innerHTML = formatDate(data[i].start, config.dateOrder);

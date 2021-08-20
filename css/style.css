@@ -30,37 +30,6 @@ main {
     border-radius: 4px;
 }
 
-div#subject-select {
-    display: grid;
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-
-div#means-input {
-    display: flex;
-    justify-content: space-around;
-}
-
-input.means-input {
-    font-family: 'Open Sans';
-    margin: 4px;
-    border: none;
-    border-bottom: solid 3px #dddddd;
-    outline: none;
-    transition: 0.5s;
-    transition-property: border-color;
-}
-
-input.means-input:focus {
-    font-family: 'Open Sans';
-    margin: 4px;
-    border-color: #004682;
-}
-
-input.error {
-    border-color: red;
-}
-
 button {
     background-color: #004682;
     color: white;
@@ -106,5 +75,24 @@ h1#modal-title {
 }
 
 div#modal-close-container {
+    text-align: center;
+}
+
+/* Table */
+table {
+    margin: auto;
+}
+
+tr:nth-child(even) {background-color: #00458221;}
+
+td {
+    padding: 8px;
+}
+
+td.bold {
+    font-weight: 600;
+}
+
+td.center {
     text-align: center;
 }
