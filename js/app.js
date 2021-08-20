@@ -83,7 +83,7 @@ function calculateDaysBetweenDates(date1, date2) {
     date1 = new Date(date1);
     date2 = new Date(date2);
     const diffTime = date2 - date1;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
     return diffDays
 }
@@ -254,7 +254,7 @@ function formatData(data) {
 // Format a date
 function formatDate(date, order) {
 
-    const day = date.getDate() + 1;
+    const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
 
