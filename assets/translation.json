@@ -16,6 +16,8 @@
         "PENTECOST": "Pinksteren",
         "SUMMER_BREAK": "Zomervakantie",
 
+        "DAYS": "dagen",
+
         "ERROR": {
             "ERROR": "Foutmelding",
             "YEAR_NOT_FOUND": "Jaar niet gevonden"

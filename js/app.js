@@ -113,16 +113,14 @@ function makeTable(data) {
         const holidayEnd = document.createElement('td');
         holidayEnd.classList.add('center');
         const holidayDuration = document.createElement('td');
-        holidayDuration.classList.add('center');
         const holidayUntil = document.createElement('td');
         if (typeof data[i].until === 'string') { holidayUntil.classList.add('red'); }
 
         holidayType.innerHTML = getTranslation(data[i].type);
         holidayStart.innerHTML = formatDate(data[i].start, config.dateOrder);
         holidayEnd.innerHTML = formatDate(data[i].end, config.dateOrder);
-        holidayDuration.innerHTML = data[i].duration;
+        holidayDuration.innerHTML = data[i].duration + ' ' + getTranslation('DAYS')
         holidayUntil.innerHTML = data[i].until;
-
         row.appendChild(holidayType);
         row.appendChild(holidayStart);
         row.appendChild(holidayEnd);
