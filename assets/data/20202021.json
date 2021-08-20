@@ -1,0 +1,42 @@
+[
+    {
+        "type": "AUTUM_BREAK",
+        "start": "2020-10-10",
+        "end": "2020-10-18"
+    },
+    {
+        "type": "CHRISTMAS_BREAK",
+        "start": "2020-12-19",
+        "end": "2021-01-03"
+    },
+    {
+        "type": "SPRING_BREAK",
+        "start": "2021-02-20",
+        "end": "2021-02-28"
+    },
+    {
+        "type": "EASTER",
+        "start": "2021-04-03",
+        "end": "2021-04-05"
+    },
+    {
+        "type": "MAY_BREAK",
+        "start": "2021-04-13",
+        "end": "2021-05-9"
+    },
+    {
+        "type": "ASCENSION_DAY",
+        "start": "2021-05-13",
+        "end": "2021-05-16"
+    },
+    {
+        "type": "PENTECOST",
+        "start": "2021-05-22",
+        "end": "2021-05-24"
+    },
+    {
+        "type": "SUMMER_BREAK",
+        "start": "2021-07-10",
+        "end": "2021-08-22"
+    }
+]
