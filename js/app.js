@@ -64,10 +64,14 @@ function getTranslation(key) {
     // Loop through the keys to get the correct translation
     for (let i = 0; i < keys.length; i++) {
         translation = translation[keys[i]];
-        if (translation === undefined) { return key; };
+        if (translation === undefined) {
+            console.error(`Translation for ${key} in ${session.language} not found`);
+            return key
+        };
         if (typeof translation !== 'object') { return translation; }
     }
 
+    console.error(`Translation for ${key} in ${session.language} not found`);
     return key
 
 };
@@ -151,15 +155,22 @@ function getCurrentInfo(data) {
     // holiday.start <= currentDate && holiday.end >= currentDate
 
     // Get current date
-    const currentDate = new Date();
+    const currentDate = new Date('06-08-2021'); // Testing
 
     // Variable to hold next(/current) holiday
     let result;
 
     session.data.forEach(holiday => {
         // Check if holiday already is over
-        if (holiday.end >! currentDate && result === undefined) { result = holiday }
+        const startOver = calculateDaysBetweenDates(holiday.start, currentDate) >= 0;
+        const endOver = calculateDaysBetweenDates(holiday.end, currentDate) >= 0;
+        console.log(holiday.type, startOver, endOver);
+        if (!startOver) {
+            if (!endOver) { result = holiday; console.log(holiday.type) }
+        }
     })
+
+    if (result === undefined) { result = { no_left: true } }
 
     const holiday = result;
 
@@ -173,6 +184,8 @@ function getCurrentInfo(data) {
 // Build HTML for current info
 function buildCurrentInfo(holiday) {
 
+    console.log(holiday);
+
     // Container for current info
     const container = document.createElement('div');
     container.id = 'current-info';
@@ -181,16 +194,31 @@ function buildCurrentInfo(holiday) {
     const title = document.createElement('h2');
     container.appendChild(title);
 
+    // Number that will be displayed, might be days until or days left
+    const number = document.createElement('span');
+
     // Check if holiday is active
     if (holiday.active === true) {
         
         title.innerText = getTranslation('TEXT_HOLIDAY_IS_ACTIVE');
+        const still = getTranslation('STILL').charAt(0).toUpperCase() + getTranslation('STILL').slice(1);
+        const daysLeft = calculateDaysBetweenDates(new Date(), holiday.end);
+        const dayOrDays = (daysLeft === 1) ? getTranslation('DAY') : getTranslation('DAYS');
+        number.innerText = `${still} ${daysLeft} ${dayOrDays} ${getTranslation('LEFT')}.`
 
     } else {
 
-        title.innerText = getTranslation('TEXT_HOLIDAY_IS_NOT_ACTIVE');
+        title.innerText = getTranslation('TEXT_HOLIDAY_NOT_ACTIVE');
+        const still = getTranslation('STILL').charAt(0).toUpperCase() + getTranslation('STILL').slice(1);
+        const daysLeft = calculateDaysBetweenDates(new Date('06-08-2021'), holiday.start);
+        const dayOrDays = (daysLeft === 1) ? getTranslation('DAY') : getTranslation('DAYS');
+        number.innerText = `${still} ${daysLeft} ${dayOrDays} ${getTranslation('TO_GO')}.`
     
     };
+
+    title.innerHTML += ' ';
+    title.appendChild(number);
+
 
     return container
 
@@ -209,7 +237,7 @@ function formatData(data) {
 
         holiday.duration = calculateDaysBetweenDates(holiday.start, holiday.end)
 
-        holiday.until = calculateDaysBetweenDates(new Date(), holiday.start)
+        holiday.until = calculateDaysBetweenDates(new Date('06-08-2021'), holiday.start)
 
         if (holiday.until < 0) {
             holiday.until = getTranslation('HOLIDAY_OVER');
