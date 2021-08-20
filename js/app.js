@@ -115,6 +115,7 @@ function makeTable(data) {
         const holidayDuration = document.createElement('td');
         holidayDuration.classList.add('center');
         const holidayUntil = document.createElement('td');
+        if (typeof data[i].until === 'string') { holidayUntil.classList.add('red'); }
 
         holidayType.innerHTML = getTranslation(data[i].type);
         holidayStart.innerHTML = formatDate(data[i].start, config.dateOrder);

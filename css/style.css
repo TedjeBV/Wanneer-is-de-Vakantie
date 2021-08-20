@@ -96,3 +96,7 @@ td.bold {
 td.center {
     text-align: center;
 }
+
+td.red {
+    color: red
+}
