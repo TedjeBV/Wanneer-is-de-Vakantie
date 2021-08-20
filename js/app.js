@@ -8,6 +8,7 @@ config.loadedYears = [
 ];
 
 config.defaultLanguage = 'nl'; // Default language
+config.dateOrder = 'DDMMYYYY' // How to display a date
 
 /*
 CODE BELOW
@@ -17,7 +18,12 @@ const session = {}; // Session object to store data
 
 // Get correct year
 session.year = (new URL(document.location)).searchParams.get('year');
-if (session.year === null) { session.year = config.currentYear };
+if (session.year !== null && config.loadedYears.includes(session.year)) { session.year = config.currentYear }
+else {
+    console.log(config.loadedYears)
+    console.error(`User tried to load ${session.year}, which does not exist`);
+    alert(getTranslation('ERROR.YEAR_NOT_FOUND'));
+}
 
 // Get correct language
 session.language = (new URL(document.location)).searchParams.get('lang');
@@ -25,6 +31,7 @@ if (session.language === null) { session.language = config.defaultLanguage };
 
 // Run the script
 function run() {
+    session.data = formatData(session.data)
     const table = makeTable(session.data);
     document.getElementById('table').appendChild(table);
 }
@@ -34,12 +41,32 @@ function getTranslation(key) {
     // Check if language is available
     if (session.translation[session.language] === undefined) { return key; };
 
-    const translation = session.translation[session.language][key];
-    if (translation === undefined) {
-        return key;
+    // Split the key
+    const keys = key.split('.');
+    let translation = session.translation[session.language];
+
+    // Loop through the keys to get the correct translation
+    for (let i = 0; i < keys.length; i++) {
+        translation = translation[keys[i]];
+        if (translation === undefined) { return key; };
+        if (typeof translation !== 'object') { return translation; }
     }
-    return translation;
+
+    return key
+
 };
+
+// Calculate difference between two dates
+function calculateDaysBetweenDates(date1, date2) {
+    // Code from:
+    // https://stackoverflow.com/a/3224854/14445654
+    date1 = new Date(date1);
+    date2 = new Date(date2);
+    const diffTime = date2 - date1;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    return diffDays
+}
 
 // Make table from the data
 function makeTable(data) {
@@ -72,8 +99,8 @@ function makeTable(data) {
         const holidayEnd = document.createElement('td');
 
         holidayType.innerHTML = getTranslation(data[i].type);
-        holidayStart.innerHTML = getTranslation(data[i].start);
-        holidayEnd.innerHTML = getTranslation(data[i].end);
+        holidayStart.innerHTML = formatDate(data[i].start, config.dateOrder);
+        holidayEnd.innerHTML = formatDate(data[i].end, config.dateOrder);
 
         row.appendChild(holidayType);
         row.appendChild(holidayStart);
@@ -86,6 +113,66 @@ function makeTable(data) {
     return table;
 
 }
+
+// Format the data
+function formatData(data) {
+
+    const formattedData = [];
+
+    data.forEach(holiday => {
+
+        // Parse the dates
+        holiday.start = new Date(holiday.start);
+        holiday.end = new Date(holiday.end);
+
+        holiday.duration = calculateDaysBetweenDates(holiday.start, holiday.end)
+
+        holiday.until = calculateDaysBetweenDates(new Date(), holiday.start)
+
+        formattedData.push(holiday);
+
+    });
+
+    return formattedData
+
+};
+
+// Format a date
+function formatDate(date, order) {
+
+    const day = date.getDate() + 1;
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    let result = '';
+
+    switch (order) {
+
+        case 'DDMMYYYY':
+            result = `${day}-${month}-${year}`;
+            break;
+
+        case 'MMDDYYYY':
+            result = `${month}-${day}-${year}`;
+            break;
+
+        case 'YYYYMMDD':
+            result = `${year}-${month}-${day}`;
+            break;
+
+        case 'YYYYDDMM':
+            result = `${year}-${day}-${month}`;
+            break;
+
+        default:
+            console.warn('Please specify an order for the date!')
+            return formatDate(date, 'DDMMYYYY')
+
+    };
+
+    return result
+
+};
 
 // Fetch all needed files and run
 // Files to load
