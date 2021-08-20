@@ -18,11 +18,17 @@ const session = {}; // Session object to store data
 
 // Get correct year
 session.year = (new URL(document.location)).searchParams.get('year');
-if (session.year !== null && config.loadedYears.includes(session.year)) { session.year = config.currentYear }
-else {
-    console.log(config.loadedYears)
-    console.error(`User tried to load ${session.year}, which does not exist`);
-    alert(getTranslation('ERROR.YEAR_NOT_FOUND'));
+if (!config.loadedYears.includes(session.year)) {
+
+    // Check if the year wasn't null before showing error
+    if (session.year !== null) {
+        console.log(config.loadedYears)
+        console.error(`User tried to load ${session.year}, which does not exist`);
+    }
+
+    // Set the year to the default
+    session.year = config.currentYear;
+
 }
 
 // Get correct language
