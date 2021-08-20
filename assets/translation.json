@@ -16,8 +16,11 @@
         "PENTECOST": "Pinksteren",
         "SUMMER_BREAK": "Zomervakantie",
 
+        "DAY": "dag",
         "DAYS": "dagen",
-
+        "LEFT": "over",
+        "STILL": "nog",
+        
         "TEXT_HOLIDAY_IS_ACTIVE": "Je hebt vakantie!",
         "TEXT_HOLIDAY_NOT_ACTIVE": "Volgende vakantie:",
 
