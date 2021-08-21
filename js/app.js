@@ -16,6 +16,9 @@ CODE BELOW
 
 const session = {}; // Session object to store data
 
+// Date object for now
+session.now = new Date();
+
 // Get correct year
 session.year = (new URL(document.location)).searchParams.get('year');
 if (!config.loadedYears.includes(session.year)) {
@@ -136,7 +139,7 @@ function makeTable(data) {
         holidayEnd.innerHTML = formatDate(data[i].end, config.dateOrder);
         holidayDuration.innerHTML = data[i].duration + ' ' + getTranslation('DAYS');
         if (data[i].status !== 'OVER') {
-            const daysLeft = calculateDaysBetweenDates(new Date(), data[i].end);
+            const daysLeft = calculateDaysBetweenDates(session.now, data[i].end);
             holidayUntil.innerText = getTranslation('STILL').charAt(0).toUpperCase() + getTranslation('STILL').slice(1)
             holidayUntil.innerText += ' ';
             if (daysLeft > 0) { holidayUntil.innerText += daysLeft }
@@ -170,7 +173,7 @@ function makeTable(data) {
 function getCurrentInfo(data) {
 
     // Get current date
-    const currentDate = new Date();
+    const currentDate = session.now;
 
     // Variable to hold next(/current) holiday
     let result;
@@ -229,7 +232,7 @@ function buildCurrentInfo(holiday) {
         // Title
         title.innerText = getTranslation('TEXT_HOLIDAY_IS_ACTIVE');
         const still = getTranslation('STILL').charAt(0).toUpperCase() + getTranslation('STILL').slice(1);
-        const daysLeft = calculateDaysBetweenDates(new Date(), holiday.end);
+        const daysLeft = calculateDaysBetweenDates(session.now, holiday.end);
         const dayOrDays = (daysLeft === 1) ? getTranslation('DAY') : getTranslation('DAYS');
         number.innerText = `${still} ${daysLeft} ${dayOrDays} ${getTranslation('LEFT')}.`;
 
@@ -242,7 +245,7 @@ function buildCurrentInfo(holiday) {
         // Title
         title.innerText = getTranslation('TEXT_HOLIDAY_NOT_ACTIVE');
         const still = getTranslation('STILL').charAt(0).toUpperCase() + getTranslation('STILL').slice(1);
-        const daysLeft = calculateDaysBetweenDates(new Date(), holiday.start);
+        const daysLeft = calculateDaysBetweenDates(session.now, holiday.start);
         const dayOrDays = (daysLeft === 1) ? getTranslation('DAY') : getTranslation('DAYS');
         number.innerText = `${still} ${daysLeft} ${dayOrDays} ${getTranslation('TO_GO')}.`;
 
@@ -273,11 +276,11 @@ function formatData(data) {
 
         holiday.duration = calculateDaysBetweenDates(holiday.start, holiday.end)
 
-        holiday.until = calculateDaysBetweenDates(new Date(), holiday.start);
+        holiday.until = calculateDaysBetweenDates(session.now, holiday.start);
 
         // Get holiday status
         if (holiday.until < 0) {
-            if (calculateDaysBetweenDates(new Date(), holiday.end) >= 0) {
+            if (calculateDaysBetweenDates(session.now, holiday.end) >= 0) {
                 holiday.status = 'ONGOING'
             } else { holiday.status = 'OVER' }
         } else { holiday.status = 'UPCOMING' };
