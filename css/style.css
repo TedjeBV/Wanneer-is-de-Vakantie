@@ -100,3 +100,10 @@ td.center {
 td.red {
     color: red
 }
+
+/* Responsive */
+@media screen and (max-width: 800px) {
+    main {
+        width: 100%;
+    }
+}
