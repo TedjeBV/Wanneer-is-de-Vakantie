@@ -86,7 +86,7 @@ function calculateDaysBetweenDates(date1, date2) {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
     return diffDays
-}
+};
 
 // Make table from the data
 function makeTable(data) {
@@ -128,13 +128,31 @@ function makeTable(data) {
         holidayEnd.classList.add('center');
         const holidayDuration = document.createElement('td');
         const holidayUntil = document.createElement('td');
-        if (typeof data[i].until === 'string') { holidayUntil.classList.add('red'); }
+        if (data[i].status === 'OVER') {
+            holidayUntil.classList.add('red');
+        }
 
         holidayType.innerHTML = getTranslation(data[i].type);
         holidayStart.innerHTML = formatDate(data[i].start, config.dateOrder);
         holidayEnd.innerHTML = formatDate(data[i].end, config.dateOrder);
-        holidayDuration.innerHTML = data[i].duration + ' ' + getTranslation('DAYS')
-        holidayUntil.innerHTML = data[i].until;
+        holidayDuration.innerHTML = data[i].duration + ' ' + getTranslation('DAYS');
+        if (data[i].status !== 'OVER') {
+            const daysLeft = calculateDaysBetweenDates(new Date(), data[i].end);
+            holidayUntil.innerText = getTranslation('STILL').charAt(0).toUpperCase() + getTranslation('STILL').slice(1)
+            holidayUntil.innerText += ' ';
+            if (daysLeft > 0) { holidayUntil.innerText += daysLeft }
+            else { holidayUntil.innerText += data[i].until };
+            holidayUntil.innerText += ' ';
+            holidayUntil.innerText += (daysLeft === 1) ? getTranslation('DAY') : getTranslation('DAYS');
+            holidayUntil.innerText += ' ';
+            
+            if (data[i].status === 'ONGOING') { holidayUntil.innerText += getTranslation('LEFT') }
+            else { holidayUntil.innerText += getTranslation('TO_GO') };
+
+        } else {
+            holidayUntil.innerHTML = getTranslation('HOLIDAY_OVER');
+        }
+
         row.appendChild(holidayType);
         row.appendChild(holidayStart);
         row.appendChild(holidayEnd);
@@ -152,19 +170,17 @@ function makeTable(data) {
 // Get current info
 function getCurrentInfo(data) {
 
-    // holiday.start <= currentDate && holiday.end >= currentDate
-
     // Get current date
     const currentDate = new Date();
 
     // Variable to hold next(/current) holiday
     let result;
 
-    session.data.forEach(holiday => {
+    data.forEach(holiday => {
         // Check if holiday already is over
         const startOver = calculateDaysBetweenDates(holiday.start, currentDate) >= 0;
-        const endOver = calculateDaysBetweenDates(holiday.end, currentDate) >= 0;
-        if (!startOver) {
+        const endOver = calculateDaysBetweenDates(holiday.end, currentDate) <= 0;
+        if (!endOver) {
             if (!endOver) { result = holiday }
         }
     })
@@ -243,11 +259,14 @@ function formatData(data) {
 
         holiday.duration = calculateDaysBetweenDates(holiday.start, holiday.end)
 
-        holiday.until = calculateDaysBetweenDates(new Date(), holiday.start)
+        holiday.until = calculateDaysBetweenDates(new Date(), holiday.start);
 
+        // Get holiday status
         if (holiday.until < 0) {
-            holiday.until = getTranslation('HOLIDAY_OVER');
-        }
+            if (calculateDaysBetweenDates(new Date(), holiday.end) >= 0) {
+                holiday.status = 'ONGOING'
+            } else { holiday.status = 'OVER' }
+        } else { holiday.status = 'UPCOMING' };
 
         formattedData.push(holiday);
 
