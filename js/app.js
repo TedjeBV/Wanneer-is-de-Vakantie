@@ -34,8 +34,8 @@ if (!config.loadedYears.includes(session.year)) {
 }
 
 // Get correct language
-session.language = (new URL(document.location)).searchParams.get('lang');
-if (session.language === null) { session.language = config.defaultLanguage };
+session.language = document.getElementsByTagName('html')[0].getAttribute('lang');
+if (session.language === undefined) { session.language = config.defaultLanguage };
 
 // Run the script
 function run() {
