@@ -190,7 +190,8 @@ function getCurrentInfo(data) {
     const holiday = result;
 
     // Check if holiday is active
-    if (holiday.start <= currentDate && holiday.end >= currentDate) { holiday.active = true };
+    if (holiday.start <= currentDate && holiday.end >= currentDate) { holiday.active = true }
+    else { holiday.active = false };
 
     return holiday
 
@@ -198,6 +199,8 @@ function getCurrentInfo(data) {
 
 // Build HTML for current info
 function buildCurrentInfo(holiday) {
+
+    console.log(holiday);
 
     // Container for current info
     const container = document.createElement('div');
@@ -219,22 +222,36 @@ function buildCurrentInfo(holiday) {
     // Number that will be displayed, might be days until or days left
     const number = document.createElement('span');
 
+    // Body for current info
+    const body = document.createElement('p');
+    container.appendChild(body);
+
     // Check if holiday is active
     if (holiday.active === true) {
         
+        // Title
         title.innerText = getTranslation('TEXT_HOLIDAY_IS_ACTIVE');
         const still = getTranslation('STILL').charAt(0).toUpperCase() + getTranslation('STILL').slice(1);
         const daysLeft = calculateDaysBetweenDates(new Date(), holiday.end);
         const dayOrDays = (daysLeft === 1) ? getTranslation('DAY') : getTranslation('DAYS');
-        number.innerText = `${still} ${daysLeft} ${dayOrDays} ${getTranslation('LEFT')}.`
+        number.innerText = `${still} ${daysLeft} ${dayOrDays} ${getTranslation('LEFT')}.`;
+
+        // Body
+        body.innerText = getTranslation('THIS_IS') + ' ';
+        body.innerText += getTranslation(holiday.type) + '!';
 
     } else {
 
+        // Title
         title.innerText = getTranslation('TEXT_HOLIDAY_NOT_ACTIVE');
         const still = getTranslation('STILL').charAt(0).toUpperCase() + getTranslation('STILL').slice(1);
         const daysLeft = calculateDaysBetweenDates(new Date(), holiday.start);
         const dayOrDays = (daysLeft === 1) ? getTranslation('DAY') : getTranslation('DAYS');
-        number.innerText = `${still} ${daysLeft} ${dayOrDays} ${getTranslation('TO_GO')}.`
+        number.innerText = `${still} ${daysLeft} ${dayOrDays} ${getTranslation('TO_GO')}.`;
+
+        // Body
+        body.innerText = getTranslation('THE_NEXT_ONE') + ' ';
+        body.innerText += getTranslation(holiday.type) + '!';
     
     };
 
