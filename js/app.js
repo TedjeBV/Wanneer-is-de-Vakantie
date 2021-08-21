@@ -22,7 +22,6 @@ if (!config.loadedYears.includes(session.year)) {
 
     // Check if the year wasn't null before showing error
     if (session.year !== null) {
-        console.log(config.loadedYears)
         console.error(`User tried to load ${session.year}, which does not exist`);
     }
 
@@ -199,8 +198,6 @@ function getCurrentInfo(data) {
 
 // Build HTML for current info
 function buildCurrentInfo(holiday) {
-
-    console.log(holiday);
 
     // Container for current info
     const container = document.createElement('div');
