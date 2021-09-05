@@ -183,8 +183,8 @@ function getCurrentInfo(data) {
         // Check if holiday already is over
         const startOver = calculateDaysBetweenDates(holiday.start, currentDate) >= 0;
         const endOver = calculateDaysBetweenDates(holiday.end, currentDate) <= 0;
-        if (!endOver) {
-            if (!endOver) { result = holiday }
+        if (!startOver && result === undefined) {
+            if (endOver) { result = holiday }
         }
     })
 
