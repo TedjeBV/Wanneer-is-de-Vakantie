@@ -1,0 +1,42 @@
+[
+    {
+        "type": "AUTUM_BREAK",
+        "start": "10-16-2021",
+        "end": "10-24-2021"
+    },
+    {
+        "type": "CHRISTMAS_BREAK",
+        "start": "12-25-2021",
+        "end": "01-09-2022"
+    },
+    {
+        "type": "SPRING_BREAK",
+        "start": "02-19-2022",
+        "end": "02-27-2022"
+    },
+    {
+        "type": "EASTER",
+        "start": "04-16-2022",
+        "end": "04-18-2022"
+    },
+    {
+        "type": "MAY_BREAK",
+        "start": "04-23-2022",
+        "end": "05-08-2022"
+    },
+    {
+        "type": "ASCENSION_DAY",
+        "start": "05-26-2022",
+        "end": "05-29-2022"
+    },
+    {
+        "type": "PENTECOST",
+        "start": "06-04-2022",
+        "end": "06-06-2022"
+    },
+    {
+        "type": "SUMMER_BREAK",
+        "start": "07-16-2022",
+        "end": "08-28-2022"
+    }
+]
