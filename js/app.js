@@ -1,10 +1,11 @@
 const config = {};
 // Configuration options:
-config.currentYear = '20202021'; // This schoolyear
+config.currentYear = '20212022'; // This schoolyear
 
 // Years that are available
 config.loadedYears = [
     '20202021',
+    '20212022',
 ];
 
 config.defaultLanguage = 'nl'; // Default language
